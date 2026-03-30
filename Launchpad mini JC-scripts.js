@@ -28,6 +28,17 @@ const getMIDI = function(column,line) {
 
 JCController.SAMPLERS = 8;
 
+/**
+ * getPlayedBPM
+ * Returns the BPM of the first currently playing channel.
+ *
+ * Checks channels in order: [Channel1], [Channel2], [Channel3], [Channel4].
+ * If a channel's "play" parameter equals 1, this function returns that
+ * channel's "bpm" value (via `engine.getValue`). If no channel is playing,
+ * it returns `null`.
+ *
+ * @returns {number|null} BPM of the first playing channel, or `null` if none are playing.
+ */
 const getPlayedBPM = function() {
 	if (engine.getParameter("[Channel1]", "play")==1) { //first we look at channel 1
     	var bmp_playing = engine.getValue("[Channel1]", "bpm")
@@ -120,7 +131,7 @@ JCController.init = function (id, debugging) {
 		//BPM_sync_LED(_value, group, _control);
 	}
 
-	//when track is ejected, setup leds is hotcus is active
+	//when track is loaded, setup leds if hotcue is active
 	const track_loaded = function (_value, group, _control) {
 		line = (group[8]-1)*16 //get the line on the pad from the group#
 		track_ejected(_value, group, _control)
