@@ -33,7 +33,11 @@ const getPlayedBPM = function() {
     	var bmp_playing = engine.getValue("[Channel1]", "bpm")
     } else if (engine.getParameter("[Channel2]", "play")==1) { //otherwise we look at channel 2
     	var bmp_playing = engine.getValue("[Channel2]", "bpm")
-    } else { //none of them were playing, we cannot sync BMP in this case
+     } else if (engine.getParameter("[Channel3]", "play")==1) { //otherwise we look at channel 3
+    	var bmp_playing = engine.getValue("[Channel3]", "bpm")
+	 } else if (engine.getParameter("[Channel4]", "play")==1) { //otherwise we look at channel 4
+		var bmp_playing = engine.getValue("[Channel4]", "bpm")
+	} else { //none of them were playing, we cannot sync BMP in this case
     	var bmp_playing = null
     }
     return bmp_playing
